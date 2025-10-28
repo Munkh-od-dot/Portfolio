@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ModeToggle } from "../../components/ui/toggle";
 
 const navItems = [
   { name: "Home", href: "#home" },
@@ -54,6 +55,7 @@ export function Navigation() {
                 </Button>
               </a>
             ))}
+            <ModeToggle />
           </div>
 
           {/* Mobile Menu Button */}

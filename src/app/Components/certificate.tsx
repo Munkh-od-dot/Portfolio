@@ -25,8 +25,8 @@ export function CertificatesSection() {
             <h2 className="text-4xl font-bold text-foreground">Certificates</h2>
           </div>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Professional certifications and courses completed to enhance my
-            technical and individuality expertise
+            Key certifications and courses completed to enhance my technical and
+            individuality expertise
           </p>
         </div>
 
