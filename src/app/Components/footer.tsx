@@ -8,8 +8,8 @@ export function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Copyright */}
           <div className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Portfolio. Built with Next.js, AI SDK,
-            and advanced AI technologies.
+            © {new Date().getFullYear()} Portfolio. Built with Next.js, Id you
+            wish to contact me please send email to munkhodbayarlakh@gmail.com.
           </div>
 
           {/* Social Links */}
@@ -23,7 +23,7 @@ export function Footer() {
               <a
                 href="https://github.com"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="https://github.com/Munkh-od-dot"
               >
                 <Github className="w-5 h-5" />
               </a>
@@ -33,22 +33,14 @@ export function Footer() {
               size="icon"
               className="rounded-full"
               asChild
-            >
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-            </Button>
+            ></Button>
             <Button
               variant="ghost"
               size="icon"
               className="rounded-full"
               asChild
             >
-              <a href="mailto:your.email@example.com">
+              <a href="mailto:munkhodbayarlakh@gmail.com">
                 <Mail className="w-5 h-5" />
               </a>
             </Button>

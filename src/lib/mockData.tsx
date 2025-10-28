@@ -26,7 +26,6 @@ export const certificates: Certificate[] = [
     date: "2024-03",
     category: "Computer science",
     imageUrl: "/CS50x.png",
-    credentialUrl: "#",
   },
   {
     id: "2",
@@ -34,8 +33,7 @@ export const certificates: Certificate[] = [
     issuer: "Harvard University",
     date: "2025-09",
     category: "Computer science",
-    imageUrl: "/web-development-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/CS50P.png",
   },
   {
     id: "3",
@@ -43,8 +41,7 @@ export const certificates: Certificate[] = [
     issuer: "SHANGHAI JAIN QIAO UNIVERSITY",
     date: "2024-08",
     category: "Go board game",
-    imageUrl: "/deep-learning-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/weiqi_project.jpg",
   },
   {
     id: "4",
@@ -52,8 +49,7 @@ export const certificates: Certificate[] = [
     issuer: "DataCare LLC",
     date: "2025-07",
     category: "Computerscience",
-    imageUrl: "/aws-certificate.png",
-    credentialUrl: "#",
+    imageUrl: "/DataCare.jpg",
   },
   {
     id: "5",
@@ -61,8 +57,7 @@ export const certificates: Certificate[] = [
     issuer: "Meta",
     date: "2024-10",
     category: "ComputerScience",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/Front-End.png",
   },
   {
     id: "6",
@@ -70,8 +65,7 @@ export const certificates: Certificate[] = [
     issuer: "Meta",
     date: "2024-11",
     category: "ComputerScience",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/version_control.png",
   },
   {
     id: "7",
@@ -79,8 +73,7 @@ export const certificates: Certificate[] = [
     issuer: "Meta",
     date: "2024-12",
     category: "ComputerScience",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/meta_java.png",
   },
   {
     id: "8",
@@ -88,8 +81,7 @@ export const certificates: Certificate[] = [
     issuer: "Tsonjin Cyber",
     date: "2024-11",
     category: "Academic",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/local_P.jpg",
   },
   {
     id: "9",
@@ -98,8 +90,7 @@ export const certificates: Certificate[] = [
     issuer: "association ",
     date: "2022-4",
     category: "Go board game",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/50.jpg",
   },
   {
     id: "10",
@@ -107,8 +98,7 @@ export const certificates: Certificate[] = [
     issuer: "Tsonjin Cyber",
     date: "2024-11",
     category: "Academic",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/lingours.jpg",
   },
   {
     id: "11",
@@ -116,8 +106,7 @@ export const certificates: Certificate[] = [
     issuer: "Tsonjin Cyber",
     date: "2024-10",
     category: "Academic",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/teacherD1.jpg",
   },
   {
     id: "12",
@@ -125,8 +114,7 @@ export const certificates: Certificate[] = [
     issuer: "Tsonjin Cyber",
     date: "2025-10",
     category: "Academic",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/teacherD2.jpg",
   },
   {
     id: "13",
@@ -134,8 +122,7 @@ export const certificates: Certificate[] = [
     issuer: "Mongolian Committee for Kangaroo",
     date: "2019-04",
     category: "Academic",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/kangaroo.jpg",
   },
   {
     id: "14",
@@ -143,8 +130,7 @@ export const certificates: Certificate[] = [
     issuer: "SoloLearn",
     date: "2024-11",
     category: "ComputerScience",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/solo_HTML.png",
   },
   {
     id: "15",
@@ -152,8 +138,7 @@ export const certificates: Certificate[] = [
     issuer: "SoloLearn",
     date: "2024-11",
     category: "ComputerScience",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/solo_CSS.png",
   },
   {
     id: "16",
@@ -161,17 +146,15 @@ export const certificates: Certificate[] = [
     issuer: "SoloLearn",
     date: "2024-11",
     category: "ComputerScience",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/solo_java.png",
   },
   {
     id: "17",
-    title: "Introduction to Javascript",
-    issuer: "SoloLearn",
-    date: "2024-11",
-    category: "ComputerScience",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    title: "Boys council",
+    issuer: "Advisor of boys council of capital",
+    date: "2024-5",
+    category: "Community",
+    imageUrl: "/boysCouncil.jpg",
   },
   {
     id: "18",
@@ -179,8 +162,7 @@ export const certificates: Certificate[] = [
     issuer: "Tsonjin Cyber",
     date: "2024-11",
     category: "Community",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/ecoclub.jpg",
   },
   {
     id: "19",
@@ -188,8 +170,7 @@ export const certificates: Certificate[] = [
     issuer: "Clean Up Mongolia",
     date: "2024-10",
     category: "Community",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/CleanUpD4.png",
   },
   {
     id: "20",
@@ -197,8 +178,23 @@ export const certificates: Certificate[] = [
     issuer: "Clean Up Mongolia",
     date: "2025-10",
     category: "Community",
-    imageUrl: "/react-certificate.jpg",
-    credentialUrl: "#",
+    imageUrl: "/CleanUpD5.png",
+  },
+  {
+    id: "21",
+    title: "Peacefull Talent",
+    issuer: "President of Asian baduk Federiation",
+    date: "2023-12",
+    category: "Go board game",
+    imageUrl: "/baduk_tournament.jpg",
+  },
+  {
+    id: "22",
+    title: "Certificate of 2 Dan",
+    issuer: "Mongolian children's and youth Go association",
+    date: "2024-11",
+    category: "Go board game",
+    imageUrl: "/Dan.png",
   },
 ];
 
@@ -256,15 +252,6 @@ export const achievements: Achievement[] = [
   },
   {
     id: "7",
-    title: "Research Publication",
-    description:
-      "Research work that illustrates the possibilities of converting brain signals to computable data",
-    date: "2025-19",
-    category: "Research",
-    icon: "book",
-  },
-  {
-    id: "8",
     title: "Tought my juniors Computer science",
     description: "In happy teachers day, I become teacher of computer sciences",
     date: "2024-10",
@@ -272,7 +259,7 @@ export const achievements: Achievement[] = [
     icon: "star",
   },
   {
-    id: "9",
+    id: "8",
     title: "Tought my juniors Computer science Again",
     description:
       "In next year of happy teachers day, I become teacher of computer sciences again",
@@ -281,7 +268,7 @@ export const achievements: Achievement[] = [
     icon: "star",
   },
   {
-    id: "10",
+    id: "9",
     title: "Participated CleanUp Day 2024",
     description: "One of the biggest eclogical event in the world",
     date: "2024-6",
@@ -289,7 +276,7 @@ export const achievements: Achievement[] = [
     icon: "users",
   },
   {
-    id: "11",
+    id: "10",
     title: "Participated CleanUp Day 2025",
     description: "One of the biggest eclogical event in the world",
     date: "2025-6",
@@ -297,7 +284,7 @@ export const achievements: Achievement[] = [
     icon: "users",
   },
   {
-    id: "12",
+    id: "11",
     title: "Eco club",
     description: "the club that encourages childrens to protect nature",
     date: "2024-9",
@@ -305,7 +292,7 @@ export const achievements: Achievement[] = [
     icon: "users",
   },
   {
-    id: "13",
+    id: "12",
     title: "Shanhai Summer school Chinese Weiqi Promotion Project",
     description:
       "Participated in Shanhai Summer school Chinese Weiqi Promotion Project",
@@ -316,6 +303,12 @@ export const achievements: Achievement[] = [
 ];
 
 export const categories = {
-  certificates: ["All", "AI/ML", "Web Development", "Cloud"],
+  certificates: [
+    "All",
+    "ComputerScience",
+    "Community",
+    "Go board game",
+    "Academic",
+  ],
   achievements: ["All", "Projects", "Community", "Research", "Academic"],
 };

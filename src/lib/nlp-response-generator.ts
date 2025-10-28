@@ -1,5 +1,5 @@
-// Natural Language Processing Response Generator
-// Uses rule-based NLP techniques instead of LLM APIs
+// src/lib/nlp-response-generator.ts
+// Improved version — clear paragraph output, optional humor
 
 interface KnowledgeEntry {
   question: string;
@@ -13,12 +13,61 @@ interface NLPResponse {
   confidence: number;
 }
 
-// Extract key entities and topics from user query
+export type HumorLevel = "none" | "light" | "medium";
+
+// ——— Utilities ———
+function lcFirst(s: string) {
+  return s ? s.charAt(0).toLowerCase() + s.slice(1) : s;
+}
+function clamp(str: string, max = 1000): string {
+  return str.length > max ? str.slice(0, max - 1) + "…" : str;
+}
+
+// ——— Humor settings ———
+const OPENERS = [
+  "Here’s a quick overview:",
+  "Sure — here’s what I found:",
+  "Here’s a summary of his work:",
+];
+const CLOSERS = [
+  "Hope that gives you a good picture!",
+  "That’s the overview — clean and concise.",
+  "And that’s how everything fits together.",
+];
+const QUIPS = [
+  "Structured like clean code — readable and balanced.",
+  "Simple, clear, and straight to the point.",
+  "No TL;DR needed this time.",
+  "Readable as a good commit message.",
+];
+const EMOJI = ["🤖", "💡", "🎯", "📚", "🧩"];
+const pick = <T>(a: T[]) => a[Math.floor(Math.random() * a.length)];
+
+function humorize(
+  core: string,
+  opts?: { level?: HumorLevel; bullets?: string[] }
+): string {
+  const level = opts?.level ?? "light";
+  if (level === "none") return core;
+
+  const opener = pick(OPENERS);
+  const closer = pick(CLOSERS);
+  const quip = pick(QUIPS);
+  const emoji = pick(EMOJI);
+
+  const bullets =
+    opts?.bullets && opts.bullets.length
+      ? "\n• " + opts.bullets.join("\n• ")
+      : "";
+
+  // Add proper newlines for readability
+  return `${opener}\n\n${core}${bullets}\n\n${quip} ${emoji}\n${closer}`;
+}
+
+// ——— Keyword & query logic ———
 function extractKeywords(query: string): string[] {
   const normalized = query.toLowerCase();
   const words = normalized.split(/\s+/);
-
-  // Remove common stop words
   const stopWords = new Set([
     "what",
     "when",
@@ -60,199 +109,182 @@ function extractKeywords(query: string): string[] {
     "me",
     "your",
     "you",
+    "please",
+    "give",
+    "info",
+    "information",
+    "more",
+    "him",
+    "his",
   ]);
-
-  return words.filter((word) => !stopWords.has(word) && word.length > 2);
+  return words.filter((w) => !stopWords.has(w) && w.length > 2);
 }
 
-// Detect question type for appropriate response formatting
 function detectQuestionType(query: string): string {
-  const normalized = query.toLowerCase();
-
-  if (normalized.match(/^(what|which)/)) return "what";
-  if (normalized.match(/^(who|whose)/)) return "who";
-  if (normalized.match(/^(when|what time)/)) return "when";
-  if (normalized.match(/^(where)/)) return "where";
-  if (normalized.match(/^(how|in what way)/)) return "how";
-  if (normalized.match(/^(why|what.*reason)/)) return "why";
-  if (normalized.match(/^(can|could|is|are|do|does)/)) return "yes_no";
-
+  const q = query.toLowerCase();
+  if (/^(what|which)/.test(q)) return "what";
+  if (/^(who|whose)/.test(q)) return "who";
+  if (/^(when|what time)/.test(q)) return "when";
+  if (/^(where)/.test(q)) return "where";
+  if (/^(how|in what way)/.test(q)) return "how";
+  if (/^(why|what.*reason)/.test(q)) return "why";
+  if (/^(can|could|is|are|do|does)/.test(q)) return "yes_no";
   return "general";
 }
 
-// Generate natural response from knowledge entries
+function detectExplicitCategory(query: string): string | null {
+  const q = query.toLowerCase();
+  if (q.includes("soft skill")) return "soft_skills";
+  if (q.includes("hard skill") || q.includes("technical skill"))
+    return "programming";
+  if (q.includes("programming") || q.includes("coding")) return "programming";
+  if (q.includes("academic") || q.includes("education")) return "academics";
+  if (q.includes("project")) return "projects";
+  if (q.includes("club") || q.includes("activity")) return "activities";
+  if (
+    q.includes("achievement") ||
+    q.includes("award") ||
+    q.includes("certificate")
+  )
+    return "achievements";
+  if (q.includes("language") || q.includes("ielts") || q.includes("jlpt"))
+    return "languages";
+  if (q.includes("interest") || q.includes("goal")) return "interests";
+  if (q.includes("about") || q.includes("overview") || q.includes("profile"))
+    return "about";
+  return null;
+}
+
+// ——— Response synthesis ———
 function synthesizeResponse(
   query: string,
   knowledgeEntries: KnowledgeEntry[]
 ): NLPResponse {
   if (knowledgeEntries.length === 0) {
     return {
-      text: "I don't have specific information about that in my knowledge base. You might want to explore the About, Projects, Achievements, or Certificates sections of the portfolio, or try asking about education, skills, projects, or interests.",
+      text: "I don’t have specific info on that. Try asking about his academics, projects, programming, or achievements.",
       confidence: 0.3,
     };
   }
 
   const questionType = detectQuestionType(query);
   const keywords = extractKeywords(query);
+  const explicitCategory = detectExplicitCategory(query);
 
-  // Calculate relevance scores for each knowledge entry
   const scoredEntries = knowledgeEntries.map((entry) => {
     let score = 0;
     const entryText = `${entry.question} ${entry.answer}`.toLowerCase();
 
-    // Score based on keyword matches
-    keywords.forEach((keyword) => {
-      if (entryText.includes(keyword)) {
-        score += 2;
-      }
-    });
+    for (const k of keywords) if (entryText.includes(k)) score += 2;
 
-    // Boost score if question is similar
-    const queryWords = query.toLowerCase().split(/\s+/);
-    const questionWords = entry.question.toLowerCase().split(/\s+/);
-    const commonWords = queryWords.filter((w) => questionWords.includes(w));
-    score += commonWords.length;
+    const qWords = query.toLowerCase().split(/\s+/);
+    const eWords = entry.question.toLowerCase().split(/\s+/);
+    score += qWords.filter((w) => eWords.includes(w)).length;
+
+    if (entry.category === "about" || entry.category === "projects")
+      score += 0.5;
+    if (explicitCategory && entry.category === explicitCategory) score += 8;
 
     return { entry, score };
   });
 
-  // Sort by relevance
   scoredEntries.sort((a, b) => b.score - a.score);
+
   const topEntries = scoredEntries.slice(0, 3);
+  const confidence = Math.min(0.9, 0.5 + (topEntries[0]?.score ?? 0) * 0.1);
 
-  // Generate response based on question type and knowledge
   let response = "";
-  const confidence = Math.min(0.9, 0.5 + topEntries[0].score * 0.1);
-
   if (topEntries.length === 1) {
-    // Single answer - direct response
     response = formatSingleAnswer(topEntries[0].entry, questionType);
   } else if (
     topEntries.length > 1 &&
     topEntries[0].entry.category === topEntries[1].entry.category
   ) {
-    // Multiple answers from same category - comprehensive response
     response = formatMultipleAnswers(
       topEntries.map((e) => e.entry),
       questionType
     );
   } else {
-    // Multiple answers from different categories - structured response
     response = formatCategorizedAnswers(
       topEntries.map((e) => e.entry),
       questionType
     );
   }
 
-  return { text: response, confidence };
+  return { text: clamp(response), confidence };
 }
 
-// Format a single answer naturally
-function formatSingleAnswer(
-  entry: KnowledgeEntry,
-  questionType: string
-): string {
-  const answer = entry.answer;
-
-  // Add natural language connectors based on question type
-  const connectors = {
-    what: "",
-    who: "",
-    when: "",
-    where: "",
-    how: "",
-    why: "",
-    yes_no: "",
-    general: "",
-  };
-
-  return `${connectors[questionType as keyof typeof connectors]}${answer}`;
+function formatSingleAnswer(entry: KnowledgeEntry, _qt: string): string {
+  return entry.answer;
 }
 
-// Format multiple related answers
-function formatMultipleAnswers(
-  entries: KnowledgeEntry[],
-  questionType: string
-): string {
+function formatMultipleAnswers(entries: KnowledgeEntry[], _qt: string): string {
   if (entries.length === 0) return "";
+  if (entries.length === 1) return entries[0].answer;
+  if (entries.length === 2)
+    return `${entries[0].answer}\n\nAdditionally, ${lcFirst(
+      entries[1].answer
+    )}`;
 
-  const category = entries[0].category;
-  let response = "";
-
-  // Create a flowing narrative from multiple entries
-  if (entries.length === 2) {
-    response = `${entries[0].answer} Additionally, ${entries[1].answer
-      .charAt(0)
-      .toLowerCase()}${entries[1].answer.slice(1)}`;
-  } else {
-    response = entries[0].answer;
-    for (let i = 1; i < entries.length - 1; i++) {
-      response += ` ${entries[i].answer}`;
-    }
-    response += ` Furthermore, ${entries[entries.length - 1].answer
-      .charAt(0)
-      .toLowerCase()}${entries[entries.length - 1].answer.slice(1)}`;
-  }
-
+  let response = entries[0].answer;
+  for (let i = 1; i < entries.length - 1; i++)
+    response += `\n\n${entries[i].answer}`;
+  response += `\n\nFurthermore, ${lcFirst(entries[entries.length - 1].answer)}`;
   return response;
 }
 
-// Format answers from different categories
 function formatCategorizedAnswers(
   entries: KnowledgeEntry[],
-  questionType: string
+  _qt: string
 ): string {
-  const categoryGroups = new Map<string, KnowledgeEntry[]>();
-
-  entries.forEach((entry) => {
-    if (!categoryGroups.has(entry.category)) {
-      categoryGroups.set(entry.category, []);
-    }
-    categoryGroups.get(entry.category)!.push(entry);
-  });
-
-  let response = "";
-  const categories = Array.from(categoryGroups.entries());
-
-  if (categories.length === 1) {
-    return formatMultipleAnswers(categories[0][1], questionType);
+  const byCat = new Map<string, KnowledgeEntry[]>();
+  for (const e of entries) {
+    if (!byCat.has(e.category)) byCat.set(e.category, []);
+    byCat.get(e.category)!.push(e);
   }
 
-  // Combine information from different categories
-  categories.forEach(([category, entries], index) => {
-    if (index === 0) {
-      response = entries[0].answer;
-    } else {
-      response += ` In terms of ${category.toLowerCase()}, ${entries[0].answer
-        .charAt(0)
-        .toLowerCase()}${entries[0].answer.slice(1)}`;
-    }
-  });
+  const cats = Array.from(byCat.entries());
+  if (cats.length === 1) return formatMultipleAnswers(cats[0][1], _qt);
 
+  let response = cats[0][1][0].answer;
+  for (let i = 1; i < cats.length; i++) {
+    const [category, group] = cats[i];
+    if (!group.length) continue;
+    response += `\n\nIn terms of ${category.toLowerCase()}, ${lcFirst(
+      group[0].answer
+    )}`;
+  }
   return response;
 }
 
-// Main NLP response generation function
+// ——— Public API ———
 export function generateNLPResponse(
   query: string,
-  knowledgeEntries: KnowledgeEntry[]
+  knowledgeEntries: KnowledgeEntry[],
+  humor: HumorLevel = "light",
+  showBullets = false
 ): string {
   const result = synthesizeResponse(query, knowledgeEntries);
 
-  // Add conversational elements for low confidence responses
-  if (result.confidence < 0.5) {
-    return `Based on what I know, ${result.text
-      .charAt(0)
-      .toLowerCase()}${result.text.slice(1)}`;
-  }
+  let core =
+    result.confidence < 0.5
+      ? `Based on what I know, ${lcFirst(result.text)}`
+      : result.text;
 
-  return result.text;
+  const bullets = showBullets
+    ? knowledgeEntries.slice(0, 3).map((e) => `(${e.category}) ${e.question}`)
+    : undefined;
+
+  // Add humor only when confident
+  if (result.confidence > 0.5) return humorize(core, { level: humor, bullets });
+  return core;
 }
 
-// Generate a streaming-like response for compatibility
 export function generateNLPResponseStream(
   query: string,
-  knowledgeEntries: KnowledgeEntry[]
+  knowledgeEntries: KnowledgeEntry[],
+  humor: HumorLevel = "light",
+  showBullets = false
 ): string {
-  return generateNLPResponse(query, knowledgeEntries);
+  return generateNLPResponse(query, knowledgeEntries, humor, showBullets);
 }

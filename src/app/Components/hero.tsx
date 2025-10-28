@@ -27,14 +27,15 @@ export function HeroSection() {
           </h1>
 
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed text-pretty">
-            Explore my portfolio and chat with my AI assistant to learn more.
+            Explore my portfolio and chat with my first AI assistant to learn
+            more.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-wrap gap-4 justify-center pt-4">
             <a href="#chatbot">
               <Button size="lg" className="gap-2">
-                Try AI Assistant
+                Try my first AI Assistant
                 <ArrowDown className="w-4 h-4" />
               </Button>
             </a>
@@ -56,7 +57,7 @@ export function HeroSection() {
               <a
                 href="https://github.com"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="https://github.com/Munkh-od-dot"
               >
                 <Github className="w-5 h-5" />
               </a>
@@ -66,22 +67,14 @@ export function HeroSection() {
               size="icon"
               className="rounded-full"
               asChild
-            >
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-            </Button>
+            ></Button>
             <Button
               variant="ghost"
               size="icon"
               className="rounded-full"
               asChild
             >
-              <a href="mailto:your.email@example.com">
+              <a href="mailto:munkhodbayarlakh@gmail.com">
                 <Mail className="w-5 h-5" />
               </a>
             </Button>

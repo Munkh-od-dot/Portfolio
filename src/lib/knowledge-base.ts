@@ -1,4 +1,6 @@
-// Knowledge Base - Contains information about you for the chatbot to retrieve
+// src/lib/knowledge-base.ts
+// Curated info about the portfolio owner (third-person, admissions-friendly)
+
 export interface KnowledgeEntry {
   id: string;
   category: string;
@@ -8,111 +10,263 @@ export interface KnowledgeEntry {
 }
 
 export const knowledgeBase: KnowledgeEntry[] = [
+  // ——— About ———
   {
-    id: "1",
-    category: "education",
-    question: "What is your educational background?",
+    id: "about-1",
+    category: "about",
+    question: "Who is he? (overview)",
     answer:
-      "I am currently applying to universities and have a strong academic background with focus on computer science and AI/ML technologies.",
+      "He is a curious, hands-on student who blends strategy, design, and code. From Go boards to Git branches, he likes solving real problems with clean architecture, well-named variables, and collaborative workflows.",
+    keywords: ["about", "overview", "bio", "summary", "profile"],
+  },
+
+  // ——— Academics ———
+  {
+    id: "academics-1",
+    category: "academics",
+    question: "What is his academic profile?",
+    answer:
+      "A well-rounded student with strong quantitative leanings and an eye for system design. In classes and internships he’s led collaborative projects, presented findings, and improved public speaking, coordination, and documentation.",
     keywords: [
+      "academics",
       "education",
       "school",
-      "university",
-      "college",
+      "grades",
       "study",
-      "academic",
+      "research",
+      "presentation",
+      "quantitative",
     ],
   },
+
+  // ——— Programming / CS (hard skills) ———
   {
-    id: "2",
-    category: "skills",
-    question: "What are your technical skills?",
+    id: "prog-1",
+    category: "programming",
+    question: "What are his programming skills?",
     answer:
-      "I have expertise in full-stack development, AI/ML, including building sophisticated chatbots with RAG, intent classification, and FastAPI backends. I'm proficient in React, Next.js, TypeScript, Python, and modern web technologies.",
+      "Comfortable with C, Python, JavaScript/TypeScript, HTML, and CSS. Uses Next.js/React + Tailwind/ShadCN UI on the front end, Django on the back end, and small ML pipelines in Python. Daily Git/GitHub (branches, PRs, reviews). He cares about trade-offs, readable APIs, and practical data modeling.",
     keywords: [
-      "skills",
-      "technical",
       "programming",
-      "languages",
-      "technologies",
-      "expertise",
+      "coding",
+      "developer",
+      "python",
+      "javascript",
+      "typescript",
+      "c language",
+      "html",
+      "css",
+      "next.js",
+      "react",
+      "django",
+      "git",
+      "github",
+      "api design",
+      "architecture",
+      "trade-offs",
     ],
   },
+
+  // ——— Soft skills (kept separate on purpose) ———
   {
-    id: "3",
-    category: "projects",
-    question: "What projects have you built?",
+    id: "soft-1",
+    category: "soft_skills",
+    question: "What are his soft skills?",
     answer:
-      "I've built advanced AI chatbot systems with intent classification and knowledge base retrieval, full-stack web applications, and various portfolio projects showcasing my technical capabilities.",
+      "He scopes tasks, coordinates teammates, runs stand-ups, and presents concise demos. He writes clear READMEs, uses issue trackers, and keeps PRs small and reviewable—fewer surprises, more shipping.",
+    keywords: [
+      "soft skill",
+      "soft skills",
+      "communication",
+      "leadership",
+      "teamwork",
+      "presentation",
+      "presenting",
+      "collaboration",
+      "coordination",
+      "public speaking",
+      "documentation",
+      "stand-ups",
+      "project management",
+    ],
+  },
+
+  // ——— Projects ———
+  {
+    id: "projects-1",
+    category: "projects",
+    question: "What projects has he built?",
+    answer:
+      "Highlights: (1) A portfolio chatbot with intent gating + lightweight retrieval; (2) Full-stack apps (Next.js/React, Django), including an Excel-style data system with inline edit/filter/delete and reusable form-row patterns; (3) Kaggle projects (card-image classifier; credit-default prediction); (4) Student apps like CyberMath/Haitan; (5) A local company dashboard (Datacare) with role-based access.",
     keywords: [
       "projects",
       "portfolio",
-      "built",
-      "created",
-      "developed",
-      "work",
+      "apps",
+      "full stack",
+      "next.js",
+      "react",
+      "django",
+      "kaggle",
+      "image classification",
+      "credit default",
+      "chatbot",
+      "rag",
+      "dashboard",
+      "datacare",
+      "cybermath",
+      "haitan",
     ],
   },
+
+  // ——— Activities / Clubs ———
   {
-    id: "4",
-    category: "interests",
-    question: "What are your interests?",
+    id: "activities-1",
+    category: "activities",
+    question: "What clubs and activities is he involved in?",
     answer:
-      "I'm passionate about artificial intelligence, machine learning, web development, and building innovative solutions that solve real-world problems. I'm particularly interested in natural language processing and conversational AI.",
-    keywords: ["interests", "passion", "hobbies", "like", "enjoy", "love"],
+      "Go Club (strategy, tournaments, mentoring) and Eco Club (tree-planting, awareness projects, and a small web/game idea for environmental education). He likes turning extracurriculars into buildable prototypes.",
+    keywords: [
+      "clubs",
+      "activities",
+      "go club",
+      "eco club",
+      "extracurricular",
+      "volunteer",
+      "mentoring",
+      "environment",
+    ],
   },
+
+  // ——— Achievements ———
   {
-    id: "5",
+    id: "achievements-1",
     category: "achievements",
-    question: "What are your achievements?",
+    question: "What are his achievements?",
     answer:
-      "I have earned multiple certificates in AI/ML, web development, and computer science. I've successfully built complex systems including this portfolio with an advanced chatbot featuring intent classification and RAG.",
+      "Competitive placements in Go (including top finishes and awards), CS/AI/ML/web certifications, completion of CS50 and project-based courses, internship experience (Datacare), and live portfolio projects.",
     keywords: [
       "achievements",
-      "accomplishments",
       "awards",
       "certificates",
       "recognition",
+      "go tournament",
+      "cs50",
+      "internship",
+      "datacare",
     ],
+  },
+
+  // ——— Languages ———
+  {
+    id: "languages-1",
+    category: "languages",
+    question: "What languages does he speak?",
+    answer:
+      "Mongolian (native), English (IELTS 6.5 overall), and ongoing Japanese study (aiming JLPT N4). Comfortable presenting technical content in English with concise slides and live demos.",
+    keywords: ["language", "english", "mongolian", "japanese", "ielts", "jlpt"],
+  },
+
+  // ——— Interests & Goals ———
+  {
+    id: "interests-1",
+    category: "interests",
+    question: "What are his interests and goals?",
+    answer:
+      "Applied AI/ML (especially NLP/RAG and useful web systems), data-driven products, and long-term exploration of full-dive VR/BCI at an undergraduate-friendly level.",
+    keywords: [
+      "interests",
+      "goals",
+      "future",
+      "ai",
+      "ml",
+      "nlp",
+      "rag",
+      "web",
+      "vr",
+      "bci",
+    ],
+  },
+
+  // ——— Personality (light humor baked-in) ———
+  {
+    id: "personality-1",
+    category: "personality",
+    question: "What’s his vibe?",
+    answer:
+      "Strategic like a Go player, patient like a Python debugger, and allergic to vague variable names. Good UX should feel like good math: elegant and predictable.",
+    keywords: ["fun", "humor", "personality", "vibe", "style", "go", "ux"],
   },
 ];
 
-// Retrieval function - finds relevant knowledge entries based on query
+// ———————————————————————————————————————————————————————————————
+// Retrieval function — finds relevant knowledge entries based on query
+// (improved matching, but still lightweight and fast)
+// ———————————————————————————————————————————————————————————————
+
+function normalize(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[^\p{L}\p{N}\s]/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export function retrieveRelevantKnowledge(
   query: string,
   topK = 3
 ): KnowledgeEntry[] {
-  const queryLower = query.toLowerCase();
-  const queryWords = queryLower.split(/\s+/);
+  const q = normalize(query);
+  if (!q) return knowledgeBase.slice(0, topK);
 
-  // Score each knowledge entry based on keyword matches
-  const scoredEntries = knowledgeBase.map((entry) => {
+  const qTokens = new Set(q.split(" "));
+
+  const scored = knowledgeBase.map((entry) => {
+    const kw = entry.keywords.map(normalize);
+    const textBag = normalize(entry.question + " " + entry.answer).split(" ");
+
+    // Token overlap scoring
     let score = 0;
 
-    // Check if query words match keywords
-    queryWords.forEach((word) => {
-      entry.keywords.forEach((keyword) => {
-        if (keyword.includes(word) || word.includes(keyword)) {
-          score += 2;
-        }
-      });
+    // Keyword exact/substring matches
+    for (const token of qTokens) {
+      for (const k of kw) {
+        if (k === token) score += 3;
+        else if (k.includes(token) || token.includes(k)) score += 1.5;
+      }
+    }
 
-      // Check if query words appear in question or answer
-      if (entry.question.toLowerCase().includes(word)) {
-        score += 1;
-      }
-      if (entry.answer.toLowerCase().includes(word)) {
-        score += 1;
-      }
-    });
+    // Question/Answer token overlap (lightweight)
+    for (const token of qTokens) {
+      if (textBag.includes(token)) score += 0.75;
+    }
+
+    // Small category prior (help “about” & “projects” appear more often)
+    if (entry.category === "about" || entry.category === "projects")
+      score += 0.5;
 
     return { entry, score };
   });
 
-  // Sort by score and return top K
-  return scoredEntries
-    .filter((item) => item.score > 0)
+  const results = scored
+    .filter((s) => s.score > 0.5)
     .sort((a, b) => b.score - a.score)
     .slice(0, topK)
-    .map((item) => item.entry);
+    .map((s) => s.entry);
+
+  // Fallback: if nothing scored above threshold, return a helpful default
+  if (results.length === 0) {
+    return [
+      {
+        id: "fallback",
+        category: "fallback",
+        question: "Fallback answer",
+        answer:
+          "I focus on questions about the portfolio owner—academics, programming, projects, achievements, clubs, and goals. Try asking: “What projects has he built?” or “What are his programming skills?”",
+        keywords: ["help", "fallback", "default", "not sure", "unknown"],
+      },
+    ];
+  }
+
+  return results;
 }

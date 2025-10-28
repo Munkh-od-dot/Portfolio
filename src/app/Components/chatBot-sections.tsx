@@ -14,7 +14,7 @@ export function ChatbotSection() {
           <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
             Chat with my advanced AI assistant powered by intent classification,
             knowledge base retrieval, and gatekeeping. Ask anything about my
-            background, skills, projects, or achievements.
+            background, skills, projects, or achievements. I tried to use:
           </p>
 
           {/* Technical Features */}
